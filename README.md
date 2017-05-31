@@ -6,6 +6,29 @@ The final video of the simulated vehicles controled by my MPC controler is here 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/MRL76I7RATI/0.jpg)](https://youtu.be/MRL76I7RATI "MPC control ")
 
 ### The Model
+The MPC allows the car to follow the trajectory along a line by using predicted(calculated) actuators like steering angle and acceleration.
+
+In our model,the states vector are:
+```
+states = [x,y,psi,v]
+```
+where `(x,y)` is position of the vehicle; `psi` is orientation of the vehicle; `v` is velocity.
+```
+Actuators: [delta,a]
+```
+where `delta` is steering angle and `a` for acceleration (throttle/brake combined).
+
+The vehicle model is implemented is a kinematic bicycle model that ignore tire forces, gravity, and mass.  Kinematic model is implemented using the following equations:
+```
+      x_[t+1] = x[t] + v[t] * cos(psi[t]) * dt
+      y_[t+1] = y[t] + v[t] * sin(psi[t]) * dt
+      psi_[t+1] = psi[t] + v[t] / Lf * delta[t] * dt
+      v_[t+1] = v[t] + a[t] * dt
+      cte[t+1] = f(x[t]) - y[t] + v[t] * sin(epsi[t]) * dt
+      epsi[t+1] = psi[t] - psides[t] + v[t] * delta[t] / Lf * dt
+```   
+where  `Lf` measures the distance between the front of the vehicle and its center of gravity (the larger the vehicle, the slower the turn rate); `cte` is  cross-track error (the difference between the line and the current vehicle position y in the coordinate space of the vehicle); `epsi` is the orientation error. 
+
 ### Choice Timestep Length and Elapsed Duration (N & dt)
 ### Polynomial Fitting and MPC Preprocessing
 ### Model Predictive Control with Latency
