@@ -2,6 +2,10 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+The final video of the simulated vehicles controled by my MPC controler is here below.
+* Resulution: 640X480; Graphics Quality: Fasttest )
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/MRL76I7RATI/0.jpg)](https://youtu.be/MRL76I7RATI "MPC control ")
 
 ## Dependencies
 
