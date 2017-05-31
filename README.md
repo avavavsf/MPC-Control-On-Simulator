@@ -1,11 +1,17 @@
-# MPC Control on Simulated Vehicles
+## MPC Control on Simulated Vehicles
 
 The final video of the simulated vehicles controled by my MPC controler is here below.
 * Resulution: 640X480; Graphics Quality: Fasttest )
 
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/MRL76I7RATI/0.jpg)](https://youtu.be/MRL76I7RATI "MPC control ")
 
-## Dependencies
+### The Model
+### Choice Timestep Length and Elapsed Duration (N & dt)
+### Polynomial Fitting and MPC Preprocessing
+### Model Predictive Control with Latency
+
+
+### Dependencies
 
 * cmake >= 3.5
  * All OSes: [click here for installation instructions](https://cmake.org/install/)
@@ -44,7 +50,7 @@ The final video of the simulated vehicles controled by my MPC controler is here 
 * Not a dependency but read the [DATA.md](./DATA.md) for a description of the data sent back from the simulator.
 
 
-## Basic Build Instructions
+### Basic Build Instructions
 
 
 1. Clone this repo.
