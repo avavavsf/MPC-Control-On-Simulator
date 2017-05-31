@@ -16,7 +16,7 @@ where `(x,y)` is position of the vehicle; `psi` is orientation of the vehicle; `
 ```
 Actuators: [delta,a]
 ```
-where `delta` is steering angle and `a` for acceleration (throttle/brake combined).
+where `delta` is steering angle and `a` is acceleration (throttle/brake combined).
 
 The vehicle model is implemented is a kinematic bicycle model that ignore tire forces, gravity, and mass.  Kinematic model is implemented using the following equations:
 ```
@@ -30,8 +30,19 @@ The vehicle model is implemented is a kinematic bicycle model that ignore tire f
 where  `Lf` measures the distance between the front of the vehicle and its center of gravity (the larger the vehicle, the slower the turn rate); `cte` is  cross-track error (the difference between the line and the current vehicle position y in the coordinate space of the vehicle); `epsi` is the orientation error. 
 
 ### Choice Timestep Length and Elapsed Duration (N & dt)
-### Polynomial Fitting and MPC Preprocessing
+The hyperparameter `N` is the number of timestamps in future, and `dt` is time elapse in seconds between two actuations. 
+First I started with the value of N = 25, and dt = 0.05, which is the values in the mpc quiz. However, it did not workout as expected. I increased N to 60 to get a longer smoother line. At slow speed it gave good results, so I set the speed limit at 40. However as I started increasing speed, N=60 at high speeds started having problem fitting a smooth degree-3 polynomial especially around curves. After fail and trial many times. I stettled at a reference speed of 65, `N=7`, and `dt=0.07`. 
+
 ### Model Predictive Control with Latency
+There's a 100 millisecond latency between actuations commands. So in order to account for it, I take the current state from telemetary data and project the current state in car-coordinates to a future timestamp using the kinematic model as expalined above in Model section above.
+The equations for new state with latency are:
+```
+double lat_x = 0.0+v*0.1;
+double lat_y = 0.0;
+double lat_psi = 0.0;
+double lat_cte = polyeval(coeffs, 0) - 0;
+double lat_epsi = lat_psi -atan(coeffs[1] + 2 * coeffs[2] * lat_x + 3 * coeffs[3] * lat_x * lat_x);
+```
 
 
 ### Dependencies
